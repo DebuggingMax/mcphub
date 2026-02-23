@@ -1,0 +1,77 @@
+{
+  "name": "mcphub",
+  "version": "1.0.0",
+  "description": "The MCP Server Marketplace - Find, install, and publish MCP servers with ease",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "mcphub": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "anthropic",
+    "claude",
+    "ai",
+    "llm",
+    "marketplace",
+    "registry",
+    "cli",
+    "server",
+    "tools"
+  ],
+  "author": "DebuggingMax",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DebuggingMax/mcphub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DebuggingMax/mcphub/issues"
+  },
+  "homepage": "https://github.com/DebuggingMax/mcphub#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "conf": "^13.0.1",
+    "inquirer": "^9.3.7",
+    "ora": "^8.1.1",
+    "semver": "^7.6.3",
+    "table": "^6.8.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^22.10.2",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
