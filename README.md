@@ -16,7 +16,7 @@
   
   <br />
   
-  <img src="https://raw.githubusercontent.com/DebuggingMax/mcphub/main/assets/demo.gif" width="700" alt="MCP Hub Demo" />
+  
 </div>
 
 ---
