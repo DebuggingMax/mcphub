@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse MCP Servers - MCP Hub</title>
+  <meta name="description" content="Browse and discover MCP servers for AI assistants. Search by category, popularity, or keywords.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .category-active {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.1));
+      border-color: #8b5cf6;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-8">
+          <a href="index.html" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg gradient-border flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold">MCP Hub</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-6">
+            <a href="browse.html" class="text-white font-medium">Browse</a>
+            <a href="pricing.html" class="text-gray-400 hover:text-white transition-colors">Pricing</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">Docs</a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="pricing.html" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg font-medium hover:from-amber-400 hover:to-orange-400 transition-all">
+            <span>⭐</span>
+            <span>Go Pro</span>
+          </a>
+          <a href="#" class="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="pt-16 flex">
+    <!-- Sidebar -->
+    <aside class="hidden lg:block w-64 fixed left-0 top-16 bottom-0 border-r border-gray-800 bg-gray-950 overflow-y-auto">
+      <div class="p-6">
+        <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Categories</h2>
+        <nav class="space-y-1" id="category-nav">
+          <button onclick="filterCategory('')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors category-active" data-category="">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+              </svg>
+              All Servers
+            </span>
+            <span class="text-sm text-gray-500" id="count-all">25</span>
+          </button>
+          <button onclick="filterCategory('devtools')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="devtools">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+              DevTools
+            </span>
+            <span class="text-sm text-gray-500">12</span>
+          </button>
+          <button onclick="filterCategory('automation')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="automation">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+              Automation
+            </span>
+            <span class="text-sm text-gray-500">7</span>
+          </button>
+          <button onclick="filterCategory('data')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="data">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+              </svg>
+              Data
+            </span>
+            <span class="text-sm text-gray-500">9</span>
+          </button>
+          <button onclick="filterCategory('database')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="database">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/>
+              </svg>
+              Database
+            </span>
+            <span class="text-sm text-gray-500">5</span>
+          </button>
+          <button onclick="filterCategory('ai')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="ai">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+              AI
+            </span>
+            <span class="text-sm text-gray-500">6</span>
+          </button>
+          <button onclick="filterCategory('productivity')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="productivity">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+              </svg>
+              Productivity
+            </span>
+            <span class="text-sm text-gray-500">6</span>
+          </button>
+          <button onclick="filterCategory('communication')" class="category-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-left hover:bg-gray-800 transition-colors" data-category="communication">
+            <span class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              Communication
+            </span>
+            <span class="text-sm text-gray-500">1</span>
+          </button>
+        </nav>
+
+        <div class="mt-8 pt-8 border-t border-gray-800">
+          <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Filter</h2>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" id="verified-only" onchange="applyFilters()" class="w-4 h-4 rounded bg-gray-800 border-gray-700 text-brand-500 focus:ring-brand-500">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Verified Only
+            </span>
+          </label>
+        </div>
+
+        <div class="mt-8 p-4 rounded-xl bg-gradient-to-br from-brand-500/10 to-cyan-500/10 border border-brand-500/20">
+          <h3 class="font-semibold mb-2">Publish Your Server</h3>
+          <p class="text-sm text-gray-400 mb-3">Get verified and reach thousands of AI developers.</p>
+          <a href="pricing.html#publisher" class="inline-flex items-center gap-1 text-sm text-brand-400 hover:text-brand-300 transition-colors">
+            Learn more
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 lg:ml-64 p-6 lg:p-8">
+      <!-- Search Bar -->
+      <div class="mb-8">
+        <div class="relative max-w-2xl">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Search servers..." 
+            class="w-full pl-12 pr-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all"
+            oninput="applyFilters()"
+          >
+        </div>
+      </div>
+
+      <!-- Sort & Results Count -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <p class="text-gray-400"><span id="results-count">25</span> servers found</p>
+        <div class="flex items-center gap-2">
+          <span class="text-gray-500 text-sm">Sort by:</span>
+          <select id="sort-select" onchange="applyFilters()" class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500">
+            <option value="downloads">Most Downloads</option>
+            <option value="stars">Most Stars</option>
+            <option value="name">Name</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mobile Categories -->
+      <div class="lg:hidden mb-6 overflow-x-auto">
+        <div class="flex gap-2 pb-2">
+          <button onclick="filterCategory('')" class="mobile-cat-btn px-4 py-2 rounded-full bg-brand-500/20 text-brand-400 whitespace-nowrap" data-category="">All</button>
+          <button onclick="filterCategory('devtools')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="devtools">DevTools</button>
+          <button onclick="filterCategory('automation')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="automation">Automation</button>
+          <button onclick="filterCategory('data')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="data">Data</button>
+          <button onclick="filterCategory('database')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="database">Database</button>
+          <button onclick="filterCategory('ai')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="ai">AI</button>
+          <button onclick="filterCategory('productivity')" class="mobile-cat-btn px-4 py-2 rounded-full bg-gray-800 text-gray-400 whitespace-nowrap hover:bg-gray-700" data-category="productivity">Productivity</button>
+        </div>
+      </div>
+
+      <!-- Server Grid -->
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4" id="server-grid">
+        <!-- Cards will be rendered by JS -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div class="absolute inset-4 sm:inset-8 lg:inset-16 bg-gray-900 rounded-2xl overflow-hidden flex flex-col">
+      <div class="flex items-center justify-between p-6 border-b border-gray-800">
+        <div class="flex items-center gap-3">
+          <h2 id="modal-title" class="text-xl font-bold">Server Name</h2>
+          <span id="modal-verified" class="hidden px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full flex items-center gap-1">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Verified
+          </span>
+        </div>
+        <button onclick="closeModal()" class="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-6">
+        <p id="modal-description" class="text-gray-400 mb-6">Server description goes here.</p>
+        
+        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <div class="text-2xl font-bold" id="modal-downloads">0</div>
+            <div class="text-gray-500 text-sm">Downloads</div>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <div class="text-2xl font-bold" id="modal-stars">0</div>
+            <div class="text-gray-500 text-sm">Stars</div>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <div class="text-2xl font-bold" id="modal-version">1.0.0</div>
+            <div class="text-gray-500 text-sm">Version</div>
+          </div>
+        </div>
+
+        <h3 class="font-semibold mb-3">Installation</h3>
+        <div class="bg-gray-950 rounded-lg p-4 mb-6 font-mono text-sm">
+          <code class="text-gray-300">mcphub install <span id="modal-install-name" class="text-brand-400">@official/server</span></code>
+        </div>
+
+        <h3 class="font-semibold mb-3">Tools</h3>
+        <div id="modal-tools" class="space-y-2 mb-6">
+          <!-- Tools list -->
+        </div>
+
+        <h3 class="font-semibold mb-3">Configuration</h3>
+        <pre id="modal-config" class="bg-gray-950 rounded-lg p-4 overflow-x-auto text-sm text-gray-300"></pre>
+      </div>
+      <div class="p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-4">
+        <a id="modal-repo-link" href="#" target="_blank" class="flex-1 px-6 py-3 border border-gray-700 rounded-xl hover:bg-gray-800 transition-colors text-center flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          View on GitHub
+        </a>
+        <button onclick="copyInstallCommand()" class="flex-1 px-6 py-3 bg-brand-600 hover:bg-brand-500 rounded-xl transition-colors flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          Copy Install Command
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Server data
+    const servers = [
+      {
+        name: '@official/filesystem',
+        version: '1.0.0',
+        description: 'Secure file system access with configurable permissions',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['devtools', 'productivity'],
+        tools: [
+          { name: 'read_file', description: 'Read a file from disk' },
+          { name: 'write_file', description: 'Write content to a file' },
+          { name: 'list_directory', description: 'List directory contents' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-filesystem', '/path/to/allowed'] },
+        verified: true,
+        downloads: 75000,
+        stars: 1500,
+      },
+      {
+        name: '@official/github',
+        version: '1.0.0',
+        description: 'GitHub integration - repos, issues, PRs, and code search',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['devtools'],
+        tools: [
+          { name: 'search_repositories', description: 'Search GitHub repositories' },
+          { name: 'get_file_contents', description: 'Get contents of a file' },
+          { name: 'create_issue', description: 'Create a new issue' },
+          { name: 'create_pull_request', description: 'Create a pull request' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-github'], env: { GITHUB_TOKEN: '' } },
+        verified: true,
+        downloads: 50000,
+        stars: 1200,
+      },
+      {
+        name: '@official/fetch',
+        version: '1.0.0',
+        description: 'Web content fetching with robots.txt compliance',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['data', 'devtools'],
+        tools: [{ name: 'fetch', description: 'Fetch content from a URL' }],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-fetch'] },
+        verified: true,
+        downloads: 45000,
+        stars: 890,
+      },
+      {
+        name: '@official/postgres',
+        version: '1.0.0',
+        description: 'PostgreSQL database access - queries, schema inspection, and more',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['database', 'data'],
+        tools: [
+          { name: 'query', description: 'Execute SQL query' },
+          { name: 'describe_table', description: 'Get table schema' },
+          { name: 'list_tables', description: 'List all tables' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-postgres'], env: { DATABASE_URL: '' } },
+        verified: true,
+        downloads: 42000,
+        stars: 950,
+      },
+      {
+        name: '@official/sqlite',
+        version: '1.0.0',
+        description: 'SQLite database access - local database queries and management',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['database', 'data'],
+        tools: [
+          { name: 'query', description: 'Execute SQL query' },
+          { name: 'describe_table', description: 'Get table schema' },
+          { name: 'list_tables', description: 'List all tables' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-sqlite', '/path/to/database.db'] },
+        verified: true,
+        downloads: 38000,
+        stars: 720,
+      },
+      {
+        name: '@official/puppeteer',
+        version: '1.0.0',
+        description: 'Browser automation with Puppeteer - screenshots, scraping, testing',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['automation', 'devtools'],
+        tools: [
+          { name: 'navigate', description: 'Navigate to a URL' },
+          { name: 'screenshot', description: 'Take a screenshot' },
+          { name: 'click', description: 'Click an element' },
+          { name: 'evaluate', description: 'Execute JavaScript' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-puppeteer'] },
+        verified: true,
+        downloads: 35000,
+        stars: 800,
+      },
+      {
+        name: '@official/memory',
+        version: '1.0.0',
+        description: 'Knowledge graph-based persistent memory for AI assistants',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['ai', 'productivity'],
+        tools: [
+          { name: 'create_entities', description: 'Create entities in the knowledge graph' },
+          { name: 'create_relations', description: 'Create relations between entities' },
+          { name: 'search_nodes', description: 'Search the knowledge graph' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-memory'] },
+        verified: true,
+        downloads: 32000,
+        stars: 580,
+      },
+      {
+        name: '@official/slack',
+        version: '1.0.0',
+        description: 'Slack integration - channels, messages, users, and reactions',
+        author: 'Anthropic',
+        repository: 'https://github.com/modelcontextprotocol/servers',
+        categories: ['communication', 'productivity'],
+        tools: [
+          { name: 'list_channels', description: 'List Slack channels' },
+          { name: 'post_message', description: 'Post a message' },
+          { name: 'get_channel_history', description: 'Get channel history' },
+        ],
+        config: { command: 'npx', args: ['-y', '@modelcontextprotocol/server-slack'], env: { SLACK_TOKEN: '' } },
+        verified: true,
+        downloads: 28000,
+        stars: 650,
+      },
+      {
+        name: '@github/mcp-server',
+        version: '1.0.0',
+        description: 'GitHub official MCP Server - comprehensive GitHub API access',
+        author: 'GitHub',
+        repository: 'https://github.com/github/github-mcp-server',
+        categories: ['devtools'],
+        tools: [
+          { name: 'search_code', description: 'Search code across repositories' },
+          { name: 'get_repo', description: 'Get repository details' },
+          { name: 'list_workflows', description: 'List GitHub Actions workflows' },
+        ],
+        config: { command: 'npx', args: ['-y', '@github/mcp-server'], env: { GITHUB_TOKEN: '' } },
+        verified: true,
+        downloads: 25000,
+        stars: 1100,
+      },
+      {
+        name: '@microsoft/playwright-mcp',
+        version: '1.0.0',
+        description: 'Official Microsoft Playwright MCP server for browser automation',
+        author: 'Microsoft',
+        repository: 'https://github.com/microsoft/playwright-mcp',
+        categories: ['automation', 'devtools'],
+        tools: [
+          { name: 'navigate', description: 'Navigate to a URL' },
+          { name: 'snapshot', description: 'Take accessibility snapshot' },
+          { name: 'click', description: 'Click an element' },
+          { name: 'fill', description: 'Fill a form field' },
+        ],
+        config: { command: 'npx', args: ['-y', '@playwright/mcp@latest'] },
+        verified: true,
+        downloads: 22000,
+        stars: 950,
+      },
+      {
+        name: '@community/context7',
+        version: '1.0.0',
+        description: 'Up-to-date code documentation for LLMs and AI code editors',
+        author: 'upstash',
+        repository: 'https://github.com/upstash/context7',
+        categories: ['devtools', 'ai'],
+        tools: [
+          { name: 'get_library_docs', description: 'Get documentation for a library' },
+          { name: 'search_docs', description: 'Search documentation' },
+        ],
+        config: { command: 'npx', args: ['-y', '@upstash/context7-mcp'] },
+        verified: false,
+        downloads: 18000,
+        stars: 890,
+      },
+      {
+        name: '@community/notion',
+        version: '0.5.0',
+        description: 'Notion workspace integration - pages, databases, and blocks',
+        author: 'community',
+        repository: 'https://github.com/makenotion/notion-mcp-server',
+        categories: ['productivity', 'data'],
+        tools: [
+          { name: 'search', description: 'Search Notion pages' },
+          { name: 'get_page', description: 'Get page content' },
+          { name: 'create_page', description: 'Create a new page' },
+        ],
+        config: { command: 'npx', args: ['-y', 'notion-mcp-server'], env: { NOTION_TOKEN: '' } },
+        verified: false,
+        downloads: 15000,
+        stars: 320,
+      },
+      {
+        name: '@community/gpt-researcher',
+        version: '1.0.0',
+        description: 'Autonomous research agent that conducts deep research on any topic',
+        author: 'assafelovic',
+        repository: 'https://github.com/assafelovic/gpt-researcher',
+        categories: ['ai', 'data'],
+        tools: [
+          { name: 'research', description: 'Conduct deep research on a topic' },
+          { name: 'generate_report', description: 'Generate a research report' },
+        ],
+        config: { command: 'python', args: ['-m', 'gpt_researcher.mcp'], env: { OPENAI_API_KEY: '' } },
+        verified: false,
+        downloads: 14000,
+        stars: 890,
+      },
+      {
+        name: '@community/brave-search',
+        version: '0.4.0',
+        description: 'Brave Search API - web search with privacy',
+        author: 'community',
+        repository: 'https://github.com/AurimarL/brave-mcp-server',
+        categories: ['data', 'ai'],
+        tools: [
+          { name: 'web_search', description: 'Search the web' },
+          { name: 'news_search', description: 'Search news' },
+        ],
+        config: { command: 'npx', args: ['-y', 'brave-mcp-server'], env: { BRAVE_API_KEY: '' } },
+        verified: false,
+        downloads: 12000,
+        stars: 250,
+      },
+      {
+        name: '@community/n8n',
+        version: '1.0.0',
+        description: 'n8n workflow automation - build and trigger workflows via MCP',
+        author: 'czlonkowski',
+        repository: 'https://github.com/czlonkowski/n8n-mcp',
+        categories: ['automation', 'productivity'],
+        tools: [
+          { name: 'create_workflow', description: 'Create a new workflow' },
+          { name: 'trigger_workflow', description: 'Trigger an existing workflow' },
+          { name: 'list_workflows', description: 'List all workflows' },
+        ],
+        config: { command: 'npx', args: ['-y', 'n8n-mcp'], env: { N8N_API_KEY: '', N8N_URL: '' } },
+        verified: false,
+        downloads: 11000,
+        stars: 340,
+      },
+      {
+        name: '@community/youtube-transcript',
+        version: '0.3.0',
+        description: 'Fetch YouTube subtitles and transcripts for AI analysis',
+        author: 'kimtaeyoon83',
+        repository: 'https://github.com/kimtaeyoon83/mcp-server-youtube-transcript',
+        categories: ['data', 'ai'],
+        tools: [{ name: 'get_transcript', description: 'Get transcript for a video' }],
+        config: { command: 'npx', args: ['-y', 'mcp-youtube-transcript'] },
+        verified: false,
+        downloads: 9500,
+        stars: 210,
+      },
+      {
+        name: '@community/serena',
+        version: '1.0.0',
+        description: 'Powerful coding agent toolkit with semantic retrieval and editing',
+        author: 'oraios',
+        repository: 'https://github.com/oraios/serena',
+        categories: ['devtools', 'ai'],
+        tools: [
+          { name: 'search_code', description: 'Semantic code search' },
+          { name: 'edit_code', description: 'Edit code with context' },
+          { name: 'explain_code', description: 'Explain code functionality' },
+        ],
+        config: { command: 'uvx', args: ['serena'] },
+        verified: false,
+        downloads: 8200,
+        stars: 450,
+      },
+      {
+        name: '@community/linear',
+        version: '0.3.0',
+        description: 'Linear issue tracking - issues, projects, and team management',
+        author: 'community',
+        repository: 'https://github.com/jerhadf/linear-mcp-server',
+        categories: ['devtools', 'productivity'],
+        tools: [
+          { name: 'list_issues', description: 'List Linear issues' },
+          { name: 'create_issue', description: 'Create a new issue' },
+          { name: 'update_issue', description: 'Update an issue' },
+        ],
+        config: { command: 'npx', args: ['-y', 'linear-mcp-server'], env: { LINEAR_API_KEY: '' } },
+        verified: false,
+        downloads: 8000,
+        stars: 180,
+      },
+      {
+        name: '@community/spotify',
+        version: '0.4.0',
+        description: 'Spotify integration - playlists, tracks, and playback control',
+        author: 'khglynn',
+        repository: 'https://github.com/khglynn/spotify-bulk-actions-mcp',
+        categories: ['productivity', 'data'],
+        tools: [
+          { name: 'search_tracks', description: 'Search for tracks' },
+          { name: 'create_playlist', description: 'Create a playlist' },
+          { name: 'get_recommendations', description: 'Get track recommendations' },
+        ],
+        config: { command: 'uvx', args: ['spotify-mcp'], env: { SPOTIFY_CLIENT_ID: '', SPOTIFY_CLIENT_SECRET: '' } },
+        verified: false,
+        downloads: 7800,
+        stars: 165,
+      },
+      {
+        name: '@community/blender',
+        version: '0.2.0',
+        description: 'Blender 3D integration - create and manipulate 3D scenes',
+        author: 'ahujasid',
+        repository: 'https://github.com/ahujasid/blender-mcp',
+        categories: ['devtools', 'automation'],
+        tools: [
+          { name: 'create_object', description: 'Create a 3D object' },
+          { name: 'modify_object', description: 'Modify an existing object' },
+          { name: 'render_scene', description: 'Render the current scene' },
+        ],
+        config: { command: 'python', args: ['-m', 'blender_mcp'] },
+        verified: false,
+        downloads: 7500,
+        stars: 280,
+      },
+      {
+        name: '@community/chrome-devtools',
+        version: '1.0.0',
+        description: 'Chrome DevTools for coding agents - inspect and debug web apps',
+        author: 'ChromeDevTools',
+        repository: 'https://github.com/ChromeDevTools/chrome-devtools-mcp',
+        categories: ['devtools', 'automation'],
+        tools: [
+          { name: 'inspect_element', description: 'Inspect a DOM element' },
+          { name: 'get_console_logs', description: 'Get console logs' },
+          { name: 'get_network_requests', description: 'Get network requests' },
+        ],
+        config: { command: 'npx', args: ['-y', '@anthropic-ai/chrome-devtools-mcp'] },
+        verified: false,
+        downloads: 6800,
+        stars: 320,
+      },
+      {
+        name: '@community/mindsdb',
+        version: '1.0.0',
+        description: 'Connect and unify data across platforms with MindsDB',
+        author: 'mindsdb',
+        repository: 'https://github.com/mindsdb/mindsdb',
+        categories: ['ai', 'database', 'data'],
+        tools: [
+          { name: 'query', description: 'Query data with SQL' },
+          { name: 'predict', description: 'Make ML predictions' },
+          { name: 'train_model', description: 'Train an ML model' },
+        ],
+        config: { command: 'python', args: ['-m', 'mindsdb.mcp'], env: { MINDSDB_URL: '' } },
+        verified: false,
+        downloads: 6200,
+        stars: 420,
+      },
+      {
+        name: '@community/exa',
+        version: '0.2.0',
+        description: 'Exa AI-powered search - semantic search for the web',
+        author: 'exa-labs',
+        repository: 'https://github.com/exa-labs/exa-mcp-server',
+        categories: ['ai', 'data'],
+        tools: [
+          { name: 'search', description: 'Semantic web search' },
+          { name: 'find_similar', description: 'Find similar content' },
+        ],
+        config: { command: 'npx', args: ['-y', 'exa-mcp-server'], env: { EXA_API_KEY: '' } },
+        verified: false,
+        downloads: 6000,
+        stars: 120,
+      },
+      {
+        name: '@community/fastapi-mcp',
+        version: '0.5.0',
+        description: 'Expose FastAPI endpoints as MCP tools with authentication',
+        author: 'tadata-org',
+        repository: 'https://github.com/tadata-org/fastapi_mcp',
+        categories: ['devtools', 'automation'],
+        tools: [{ name: 'call_endpoint', description: 'Call a FastAPI endpoint' }],
+        config: { command: 'uvx', args: ['fastapi-mcp'] },
+        verified: false,
+        downloads: 5500,
+        stars: 210,
+      },
+    ];
+
+    let currentCategory = '';
+    let currentServer = null;
+
+    function formatNumber(num) {
+      if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+      }
+      return num.toString();
+    }
+
+    function renderServers(filteredServers) {
+      const grid = document.getElementById('server-grid');
+      document.getElementById('results-count').textContent = filteredServers.length;
+      
+      if (filteredServers.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12">
+            <svg class="w-16 h-16 text-gray-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-gray-500 text-lg">No servers found</p>
+            <p class="text-gray-600">Try adjusting your search or filters</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filteredServers.map(server => `
+        <div class="p-5 rounded-xl bg-gray-900 border border-gray-800 card-hover transition-all cursor-pointer" onclick="openModal('${server.name}')">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-semibold truncate">${server.name}</h3>
+                ${server.verified ? `
+                  <span class="px-2 py-0.5 bg-brand-500/20 text-brand-400 text-xs rounded-full flex items-center gap-1 flex-shrink-0">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    Verified
+                  </span>
+                ` : `
+                  <a href="pricing.html#publisher" class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full hover:bg-amber-500/20 transition-colors flex-shrink-0" onclick="event.stopPropagation()">
+                    Get Verified ✨
+                  </a>
+                `}
+              </div>
+              <p class="text-gray-500 text-sm">by ${server.author}</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm mb-4 line-clamp-2">${server.description}</p>
+          <div class="flex items-center gap-4 text-sm text-gray-500">
+            <span class="flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              ${formatNumber(server.downloads)}
+            </span>
+            <span class="flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+              </svg>
+              ${formatNumber(server.stars)}
+            </span>
+            <span class="px-2 py-0.5 bg-gray-800 rounded text-xs">${server.categories[0]}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(category) {
+      currentCategory = category;
+      
+      // Update sidebar buttons
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('category-active');
+        if (btn.dataset.category === category) {
+          btn.classList.add('category-active');
+        }
+      });
+      
+      // Update mobile buttons
+      document.querySelectorAll('.mobile-cat-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-500/20', 'text-brand-400');
+        btn.classList.add('bg-gray-800', 'text-gray-400');
+        if (btn.dataset.category === category) {
+          btn.classList.remove('bg-gray-800', 'text-gray-400');
+          btn.classList.add('bg-brand-500/20', 'text-brand-400');
+        }
+      });
+      
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const verifiedOnly = document.getElementById('verified-only').checked;
+      const sort = document.getElementById('sort-select').value;
+
+      let filtered = servers.filter(server => {
+        // Search
+        if (search && !server.name.toLowerCase().includes(search) && 
+            !server.description.toLowerCase().includes(search)) {
+          return false;
+        }
+        // Category
+        if (currentCategory && !server.categories.includes(currentCategory)) {
+          return false;
+        }
+        // Verified
+        if (verifiedOnly && !server.verified) {
+          return false;
+        }
+        return true;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        switch (sort) {
+          case 'downloads': return b.downloads - a.downloads;
+          case 'stars': return b.stars - a.stars;
+          case 'name': return a.name.localeCompare(b.name);
+          default: return 0;
+        }
+      });
+
+      renderServers(filtered);
+    }
+
+    function openModal(name) {
+      const server = servers.find(s => s.name === name);
+      if (!server) return;
+      
+      currentServer = server;
+      
+      document.getElementById('modal-title').textContent = server.name;
+      document.getElementById('modal-description').textContent = server.description;
+      document.getElementById('modal-downloads').textContent = formatNumber(server.downloads);
+      document.getElementById('modal-stars').textContent = formatNumber(server.stars);
+      document.getElementById('modal-version').textContent = server.version;
+      document.getElementById('modal-install-name').textContent = server.name;
+      document.getElementById('modal-repo-link').href = server.repository;
+      
+      const verifiedBadge = document.getElementById('modal-verified');
+      if (server.verified) {
+        verifiedBadge.classList.remove('hidden');
+        verifiedBadge.classList.add('flex');
+      } else {
+        verifiedBadge.classList.add('hidden');
+        verifiedBadge.classList.remove('flex');
+      }
+      
+      document.getElementById('modal-tools').innerHTML = server.tools.map(tool => `
+        <div class="flex items-start gap-3 p-3 bg-gray-800 rounded-lg">
+          <svg class="w-5 h-5 text-brand-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          <div>
+            <div class="font-medium">${tool.name}</div>
+            <div class="text-gray-500 text-sm">${tool.description}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      document.getElementById('modal-config').textContent = JSON.stringify(server.config, null, 2);
+      
+      document.getElementById('modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+      document.body.style.overflow = '';
+      currentServer = null;
+    }
+
+    function copyInstallCommand() {
+      if (!currentServer) return;
+      navigator.clipboard.writeText(`mcphub install ${currentServer.name}`);
+      
+      const btn = event.target.closest('button');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        Copied!
+      `;
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 2000);
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+      if (e.key === '/' && !document.getElementById('modal').classList.contains('hidden') === false) {
+        e.preventDefault();
+        document.getElementById('search-input').focus();
+      }
+    });
+
+    // Initial render
+    renderServers(servers);
+    document.getElementById('count-all').textContent = servers.length;
+  </script>
+</body>
+</html>

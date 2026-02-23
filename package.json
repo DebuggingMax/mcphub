@@ -1,6 +1,6 @@
 {
   "name": "@debuggingmax/mcphub",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "The MCP Server Marketplace - Find, install, and publish MCP servers with ease",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,11 @@
     "url": "https://github.com/DebuggingMax/mcphub.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/DebuggingMax"
   },
   "engines": {
     "node": ">=18.0.0"

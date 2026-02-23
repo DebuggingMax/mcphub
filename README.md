@@ -5,6 +5,8 @@
   <p>Find, install, and manage MCP servers for Claude, ChatGPT, and beyond</p>
   
   [![npm version](https://img.shields.io/npm/v/mcphub?style=flat-square&color=blue)](https://www.npmjs.com/package/mcphub)
+  [![Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?style=flat-square&logo=discord)](https://discord.gg/mcphub)
+  [![Sponsor](https://img.shields.io/badge/Sponsor-❤️-ea4aaa?style=flat-square)](https://github.com/sponsors/DebuggingMax)
   [![Downloads](https://img.shields.io/npm/dm/mcphub?style=flat-square&color=green)](https://www.npmjs.com/package/mcphub)
   [![CI](https://img.shields.io/github/actions/workflow/status/DebuggingMax/mcphub/ci.yml?branch=main&style=flat-square&label=tests)](https://github.com/DebuggingMax/mcphub/actions/workflows/ci.yml)
   [![GitHub Stars](https://img.shields.io/github/stars/DebuggingMax/mcphub?style=flat-square&color=yellow)](https://github.com/DebuggingMax/mcphub)

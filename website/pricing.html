@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - MCP Hub</title>
+  <meta name="description" content="MCP Hub pricing plans. Free CLI, Pro features, Publisher tools, and Enterprise solutions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    }
+    .card-glow {
+      box-shadow: 0 0 60px rgba(139, 92, 246, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-8">
+          <a href="index.html" class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg gradient-border flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold">MCP Hub</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-6">
+            <a href="browse.html" class="text-gray-400 hover:text-white transition-colors">Browse</a>
+            <a href="pricing.html" class="text-white font-medium">Pricing</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">Docs</a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-32 pb-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        Simple, <span class="gradient-text">transparent</span> pricing
+      </h1>
+      <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+        Start free. Upgrade when you need more. No hidden fees.
+      </p>
+      
+      <!-- Billing Toggle -->
+      <div class="inline-flex items-center gap-4 p-1 bg-gray-900 rounded-xl">
+        <button id="monthly-btn" onclick="setBilling('monthly')" class="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium transition-all">
+          Monthly
+        </button>
+        <button id="yearly-btn" onclick="setBilling('yearly')" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white transition-all">
+          Yearly <span class="text-green-400 text-sm">Save 20%</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="pb-20 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Free Tier -->
+        <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800">
+          <div class="mb-6">
+            <h3 class="text-xl font-bold mb-2">Free</h3>
+            <p class="text-gray-500 text-sm">For individuals getting started</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold">$0</span>
+            <span class="text-gray-500">/forever</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Full CLI access</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Browse all servers</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Install unlimited servers</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Auto-configuration</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Community support</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center border border-gray-700 rounded-xl hover:bg-gray-800 transition-colors font-medium">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="p-6 rounded-2xl bg-gray-900 border-2 border-brand-500 relative card-glow">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-500 rounded-full text-sm font-medium">
+            Most Popular
+          </div>
+          <div class="mb-6 pt-2">
+            <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
+              <span>⭐</span> Pro
+            </h3>
+            <p class="text-gray-500 text-sm">For power users</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold" data-monthly="$9" data-yearly="$7">$9</span>
+            <span class="text-gray-500">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Everything in Free</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="font-medium text-brand-400">Priority support</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Usage analytics</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Early access to new servers</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Custom server collections</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Pro badge on profile</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center bg-brand-600 hover:bg-brand-500 rounded-xl transition-colors font-medium">
+            Upgrade to Pro
+          </a>
+        </div>
+
+        <!-- Publisher Tier -->
+        <div id="publisher" class="p-6 rounded-2xl bg-gray-900 border border-gray-800">
+          <div class="mb-6">
+            <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Publisher
+            </h3>
+            <p class="text-gray-500 text-sm">For server authors</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold" data-monthly="$29" data-yearly="$23">$29</span>
+            <span class="text-gray-500">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Everything in Pro</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="font-medium text-amber-400">✓ Verified badge</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Featured listing (homepage)</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Download analytics dashboard</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Priority in search results</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Publish up to 10 servers</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl transition-all font-medium">
+            Start Publishing
+          </a>
+        </div>
+
+        <!-- Enterprise Tier -->
+        <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800">
+          <div class="mb-6">
+            <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+              Enterprise
+            </h3>
+            <p class="text-gray-500 text-sm">For teams & organizations</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold" data-monthly="$99" data-yearly="$79">$99</span>
+            <span class="text-gray-500">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Everything in Publisher</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="font-medium text-cyan-400">Private registry</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>SSO / SAML authentication</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Custom branding</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Team management</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Dedicated account manager</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center border border-gray-700 rounded-xl hover:bg-gray-800 transition-colors font-medium">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-4 border-t border-gray-800">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      
+      <div class="space-y-4">
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">Is the CLI really free forever?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">Yes! The core CLI functionality (search, install, configure) is completely free and will remain free forever. We believe everyone should have access to the best MCP tooling.</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">What's the difference between Free and Pro?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">Free gives you full CLI access to browse, install, and configure servers. Pro adds priority support, usage analytics, early access to new servers, and custom collections. It's for power users who want more insight and faster help.</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">How do I get the Verified badge?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">The Verified badge is included with the Publisher plan ($29/mo). We review your server for security and quality, then add the badge to show users it's trustworthy. This also gives you priority in search results.</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">Can I cancel anytime?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">Absolutely. All plans are month-to-month (or annual with a discount). Cancel anytime from your account settings. Your access continues until the end of your billing period.</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">What's a private registry?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">Enterprise customers get a private registry where they can host internal MCP servers that are only accessible to their team. Perfect for proprietary tools and internal APIs that shouldn't be public.</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-xl">
+          <button class="w-full p-5 text-left flex items-center justify-between" onclick="toggleFaq(this)">
+            <span class="font-medium">Do you offer discounts for open source?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-5 pb-5 hidden">
+            <p class="text-gray-400">Yes! Open source projects and maintainers can apply for free Publisher access. Email us at opensource@mcphub.dev with your project details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-4 border-t border-gray-800">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to get started?</h2>
+      <p class="text-gray-400 text-lg mb-8">
+        Join thousands of developers using MCP Hub to supercharge their AI workflows.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="index.html" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 rounded-xl font-semibold text-lg transition-colors">
+          Get Started Free
+        </a>
+        <a href="browse.html" class="px-8 py-4 border border-gray-700 hover:bg-gray-800 rounded-xl font-semibold text-lg transition-colors">
+          Browse Servers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg gradient-border flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold">MCP Hub</span>
+          </div>
+          <p class="text-gray-500 text-sm">The package manager for Model Context Protocol servers.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Product</h4>
+          <ul class="space-y-2 text-gray-500">
+            <li><a href="browse.html" class="hover:text-white transition-colors">Browse</a></li>
+            <li><a href="pricing.html" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">CLI Reference</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Community</h4>
+          <ul class="space-y-2 text-gray-500">
+            <li><a href="#" class="hover:text-white transition-colors">GitHub</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Discord</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Company</h4>
+          <ul class="space-y-2 text-gray-500">
+            <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+        © 2025 MCP Hub. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentBilling = 'monthly';
+
+    function setBilling(billing) {
+      currentBilling = billing;
+      
+      // Update buttons
+      const monthlyBtn = document.getElementById('monthly-btn');
+      const yearlyBtn = document.getElementById('yearly-btn');
+      
+      if (billing === 'monthly') {
+        monthlyBtn.classList.add('bg-brand-600', 'text-white');
+        monthlyBtn.classList.remove('text-gray-400');
+        yearlyBtn.classList.remove('bg-brand-600', 'text-white');
+        yearlyBtn.classList.add('text-gray-400');
+      } else {
+        yearlyBtn.classList.add('bg-brand-600', 'text-white');
+        yearlyBtn.classList.remove('text-gray-400');
+        monthlyBtn.classList.remove('bg-brand-600', 'text-white');
+        monthlyBtn.classList.add('text-gray-400');
+      }
+      
+      // Update prices
+      document.querySelectorAll('[data-monthly]').forEach(el => {
+        el.textContent = el.dataset[billing];
+      });
+    }
+
+    function toggleFaq(button) {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('svg');
+      
+      content.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    }
+  </script>
+</body>
+</html>
