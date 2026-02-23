@@ -6,6 +6,7 @@
   
   [![npm version](https://img.shields.io/npm/v/mcphub?style=flat-square&color=blue)](https://www.npmjs.com/package/mcphub)
   [![Downloads](https://img.shields.io/npm/dm/mcphub?style=flat-square&color=green)](https://www.npmjs.com/package/mcphub)
+  [![CI](https://img.shields.io/github/actions/workflow/status/DebuggingMax/mcphub/ci.yml?branch=main&style=flat-square&label=tests)](https://github.com/DebuggingMax/mcphub/actions/workflows/ci.yml)
   [![GitHub Stars](https://img.shields.io/github/stars/DebuggingMax/mcphub?style=flat-square&color=yellow)](https://github.com/DebuggingMax/mcphub)
   [![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)](LICENSE)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
