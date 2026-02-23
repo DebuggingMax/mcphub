@@ -1,6 +1,6 @@
 {
   "name": "@debuggingmax/mcphub",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The MCP Server Marketplace - Find, install, and publish MCP servers with ease",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

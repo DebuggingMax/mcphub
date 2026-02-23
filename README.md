@@ -13,11 +13,11 @@
   
   <br />
   
-  [📖 Documentation](docs/) • [🎯 Examples](examples/) • [💬 Discord](https://discord.gg/mcphub) • [🏢 Enterprise](docs/ENTERPRISE.md)
+  [📖 Documentation](docs/QUICKSTART.md) • [🎯 Examples](examples/) • [💬 Discord](https://discord.gg/mcphub) • [🏢 Enterprise](docs/ENTERPRISE.md)
   
   <br />
   
-  
+  <img src="https://raw.githubusercontent.com/DebuggingMax/mcphub/main/assets/demo.png" width="700" alt="MCP Hub Demo" />
 </div>
 
 ---
