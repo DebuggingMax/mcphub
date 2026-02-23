@@ -15,7 +15,7 @@
   
   <br />
   
-  [📖 Documentation](docs/QUICKSTART.md) • [🎯 Examples](examples/) • [💬 Discord](https://discord.gg/mcphub) • [🏢 Enterprise](docs/ENTERPRISE.md)
+  [📖 Documentation](docs/QUICKSTART.md) • [🎯 Examples](examples/) • [💬 Discord](https://discord.gg/2zCN4gSWr) • [🏢 Enterprise](docs/ENTERPRISE.md)
   
   <br />
   
@@ -336,7 +336,7 @@ npm link
 
 ## 📣 Community
 
-- 💬 [Discord](https://discord.gg/mcphub) — Chat with us
+- 💬 [Discord](https://discord.gg/2zCN4gSWr) — Chat with us
 - 🐦 [Twitter](https://twitter.com/mcphub_dev) — Updates and announcements
 - 📝 [Blog](https://mcphub.dev/blog) — Tutorials and news
 - 🐛 [Issues](https://github.com/DebuggingMax/mcphub/issues) — Report bugs
